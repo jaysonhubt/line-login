@@ -31,7 +31,7 @@ class LineController extends Controller
     }
 
     public function getAccessToken(Request $request) {
-        $response = HTTP::withHeaders(['Content-Type' => 'application/x-www-form-urlencoded'])
+        $response = HTTP::asForm()
             ->post('https://api.line.me/oauth2/v2.1/token', [
             'grant_type' => 'authorization_code',
             'code' => $request->code,
