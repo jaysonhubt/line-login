@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ce7d96b4-74aa-4291-a3c2-2429de0ad0c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="ce7d96b4-74aa-4291-a3c2-2429de0ad0c1" name="Default Changelist" comment="Fix url">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LineController.php" afterDir="false" />
     </list>
@@ -168,22 +168,38 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600154811405</updated>
-      <workItem from="1600154815929" duration="9046000" />
+      <workItem from="1600154815929" duration="9138000" />
     </task>
+    <task id="LOCAL-00001" summary="Fix url">
+      <created>1600164154362</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600164154362</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fix url" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix url" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600160531685">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050/1920.0.1366.738@0.0.1920.1050" timestamp="1600160531685" />
-    <state x="585" y="120" key="CommitChangelistDialog2" timestamp="1600164131099">
+    <state x="585" y="120" key="CommitChangelistDialog2" timestamp="1600164218803">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="585" y="120" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1366.738@0.0.1920.1050" timestamp="1600164131099" />
+    <state x="585" y="120" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1366.738@0.0.1920.1050" timestamp="1600164218803" />
+    <state x="184" y="93" key="DiffContextDialog" timestamp="1600164217661">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="184" y="93" key="DiffContextDialog/0.0.1920.1050/1920.0.1366.738@0.0.1920.1050" timestamp="1600164217661" />
     <state x="740" y="281" key="FileChooserDialogImpl" timestamp="1600159587989">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -196,6 +212,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="461" y="168" key="SettingsEditor/0.0.1920.1050/1920.0.1366.738@0.0.1920.1050" timestamp="1600159370680" />
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2" timestamp="1600164155872">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="259" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1366.738@0.0.1920.1050" timestamp="1600164155872" />
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1600159786995">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

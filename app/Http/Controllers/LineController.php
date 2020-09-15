@@ -19,7 +19,7 @@ class LineController extends Controller
         $url = self::AUTHOR_REQUEST_URL .
             '?response_type=' . self::RESPONSE_TYPE .
             '&client_id=' . self::CLIENT_ID .
-            '&redirect_uri=' . config('APP_URL') . self::REDIRECT_URL .
+            '&redirect_uri=' . env('APP_URL') . self::REDIRECT_URL .
             '&state=' . self::STATE .
             '&scope=' . self::SCOPE;
 
@@ -30,7 +30,7 @@ class LineController extends Controller
         HTTP::post('https://api.line.me/oauth2/v2.1/token', [
             'grant_type' => 'authorization_code',
             'code' => $request->code,
-            'redirect_uri' => config('APP_URL') . self::REDIRECT_URL,
+            'redirect_uri' => env('APP_URL') . self::REDIRECT_URL,
             'client_id' => self::CLIENT_ID,
             'client_secret' => self::CLIENT_SECRET
         ]);
