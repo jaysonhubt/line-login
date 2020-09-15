@@ -36,6 +36,10 @@ class LineController extends Controller
             'client_secret' => self::CLIENT_SECRET
         ]);
 
+        if ($response->failed()) {
+            $response->throw()->json();
+        }
+
         dd($response->json());
     }
 
