@@ -10,7 +10,6 @@ class LineController extends Controller
     const AUTHOR_REQUEST_URL = 'https://access.line.me/oauth2/v2.1/authorize';
     const RESPONSE_TYPE = 'code';
     const CLIENT_ID = 1654923778;
-    const REDIRECT_URL = '/auth';
     const STATE = 'random_string';
     const SCOPE = 'profile%20openid%20email';
     const CLIENT_SECRET = '04f226eb9eae8a57cdcb9fe361c52047';
@@ -19,11 +18,16 @@ class LineController extends Controller
         $url = self::AUTHOR_REQUEST_URL .
             '?response_type=' . self::RESPONSE_TYPE .
             '&client_id=' . self::CLIENT_ID .
-            '&redirect_uri=' . env('APP_URL') . self::REDIRECT_URL .
+            '&redirect_uri=' . route('line_verify') .
             '&state=' . self::STATE .
             '&scope=' . self::SCOPE;
 
         return redirect($url);
+    }
+
+    public function verify(Request $request) {
+        $code = $request->code;
+        return view('verify', compact('code'));
     }
 
     public function getAccessToken(Request $request) {
@@ -31,7 +35,7 @@ class LineController extends Controller
             ->post('https://api.line.me/oauth2/v2.1/token', [
             'grant_type' => 'authorization_code',
             'code' => $request->code,
-            'redirect_uri' => env('APP_URL') . self::REDIRECT_URL,
+            'redirect_uri' => env('APP_URL') . route('line_verify'),
             'client_id' => self::CLIENT_ID,
             'client_secret' => self::CLIENT_SECRET
         ]);
