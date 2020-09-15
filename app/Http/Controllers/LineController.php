@@ -35,7 +35,7 @@ class LineController extends Controller
             ->post('https://api.line.me/oauth2/v2.1/token', [
             'grant_type' => 'authorization_code',
             'code' => $request->code,
-            'redirect_uri' => env('APP_URL') . route('line_verify'),
+            'redirect_uri' => route('line_verify'),
             'client_id' => self::CLIENT_ID,
             'client_secret' => self::CLIENT_SECRET
         ]);
