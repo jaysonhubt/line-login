@@ -55,6 +55,35 @@ class LineController extends Controller
     public function webhook(Request $request) {
         Log::channel('single')->info('webhook');
         Log::channel('single')->info($request->all());
+
+        if ($request['events'][0]['type'] === 'message') {
+            $this->sendDefaultReplyMessage($request['events'][0]['replyToken']);
+        }
+
         dd($request->all());
+    }
+
+    private function sendDefaultReplyMessage($replyToken) {
+        return HTTP::withToken('token')
+            ->post('https://api.line.me/v2/bot/message/reply', [
+                'replyToken' => $replyToken,
+                'messages' => [
+                    [
+                        'type' => 'text',
+                        'text' => 'Hi!'
+                    ],
+                    [
+                        'type' => 'sticker',
+                        'packageId' => 11537,
+                        'stickerId' => 52002736
+                    ],
+                    [
+                        'type' => 'image',
+                        'originalContentUrl' => 'https://picsum.photos/536/354',
+                        'previewImageUrl' => 'https://picsum.photos/536/354'
+                    ]
+                ],
+                'notificationDisabled' => false
+            ]);
     }
 }
