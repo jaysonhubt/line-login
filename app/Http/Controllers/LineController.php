@@ -53,7 +53,7 @@ class LineController extends Controller
     }
 
     public function webhook(Request $request) {
-        Log::info('LINE webhook log: '.$request->all());
+        Log::channel('single')->info('LINE webhook log: '.$request->json());
         dd($request->all());
     }
 }
