@@ -64,26 +64,30 @@ class LineController extends Controller
     }
 
     private function sendDefaultReplyMessage($replyToken) {
-        return HTTP::withToken('token')
-            ->post('https://api.line.me/v2/bot/message/reply', [
-                'replyToken' => $replyToken,
-                'messages' => [
-                    [
-                        'type' => 'text',
-                        'text' => 'Hi!'
-                    ],
-                    [
-                        'type' => 'sticker',
-                        'packageId' => 11537,
-                        'stickerId' => 52002736
-                    ],
-                    [
-                        'type' => 'image',
-                        'originalContentUrl' => 'https://picsum.photos/536/354',
-                        'previewImageUrl' => 'https://picsum.photos/536/354'
-                    ]
+        $replyContent = [
+            'replyToken' => $replyToken,
+            'messages' => [
+                [
+                    'type' => 'text',
+                    'text' => 'Hi!'
                 ],
-                'notificationDisabled' => false
-            ]);
+                [
+                    'type' => 'sticker',
+                    'packageId' => 11537,
+                    'stickerId' => 52002736
+                ],
+                [
+                    'type' => 'image',
+                    'originalContentUrl' => 'https://picsum.photos/536/354',
+                    'previewImageUrl' => 'https://picsum.photos/536/354'
+                ]
+            ],
+            'notificationDisabled' => false
+        ];
+
+        Log::channel('single')->info($replyContent);
+
+        return HTTP::withToken('token')
+            ->post('https://api.line.me/v2/bot/message/reply', $replyContent);
     }
 }
