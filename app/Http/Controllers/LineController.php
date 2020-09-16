@@ -57,7 +57,8 @@ class LineController extends Controller
         Log::channel('single')->info($request->all());
 
         if ($request['events'][0]['type'] === 'message') {
-            $this->sendDefaultReplyMessage($request['events'][0]['replyToken']);
+            $result = $this->sendDefaultReplyMessage($request['events'][0]['replyToken']);
+            Log::channel('single')->info($result->json());
         }
 
         dd($request->all());
