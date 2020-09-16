@@ -86,9 +86,9 @@ class LineController extends Controller
             'notificationDisabled' => false
         ];
 
-        Log::channel('9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=')->info($replyContent);
+        Log::channel('single')->info($replyContent);
 
-        return HTTP::withToken('token')
+        return HTTP::withToken('9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=')
             ->post('https://api.line.me/v2/bot/message/reply', $replyContent);
     }
 }
