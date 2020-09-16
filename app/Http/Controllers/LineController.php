@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LineController extends Controller
 {
@@ -52,6 +53,7 @@ class LineController extends Controller
     }
 
     public function webhook(Request $request) {
+        Log::info('LINE webhook log: '.$request->all());
         dd($request->all());
     }
 }
