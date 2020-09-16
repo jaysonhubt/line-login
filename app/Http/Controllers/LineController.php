@@ -50,4 +50,8 @@ class LineController extends Controller
     public function result(Request $request) {
         dd($request->all());
     }
+
+    public function webhook(Request $request) {
+        dd($request->all());
+    }
 }
