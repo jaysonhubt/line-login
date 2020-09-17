@@ -10,6 +10,9 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
 class AppServiceProvider extends ServiceProvider
 {
+    const CHANNEL_TOKEN = '9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=';
+    const CHANNEL_SECRET = 'ec46fc50e1dbfa160360eae8767d8831';
+
     /**
      * Register any application services.
      *
@@ -17,15 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(LINEBot::class, function () {
-            dd(new CurlHTTPClient(LineController::CHANNEL_TOKEN));
-            dd(new LINEBot(
-                new CurlHTTPClient(LineController::CHANNEL_TOKEN),
-                ['channelSecret' => LineController::CHANNEL_SECRET]
-            ));
+        $this->app->singleton(LINEBot::class, function ($app) {
             return new LINEBot(
-                new CurlHTTPClient(LineController::CHANNEL_TOKEN),
-                ['channelSecret' => LineController::CHANNEL_SECRET]
+                new CurlHTTPClient(self::CHANNEL_TOKEN),
+                ['channelSecret' => self::CHANNEL_SECRET]
             );
         });
     }
