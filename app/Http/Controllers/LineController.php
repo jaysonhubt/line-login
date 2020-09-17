@@ -22,13 +22,13 @@ class LineController extends Controller
     private $httpClient;
     private $bot;
 
-//    public function __construct(
-//        CurlHTTPClient $httpClient,
-//        LINEBot $bot
-//    ) {
-//        $this->httpClient = $httpClient;
-//        $this->bot = $bot;
-//    }
+    public function __construct(
+        CurlHTTPClient $httpClient,
+        LINEBot $bot
+    ) {
+        $this->httpClient = $httpClient;
+        $this->bot = $bot;
+    }
 
     public function lineLogin() {
         $url = self::AUTHOR_REQUEST_URL .
@@ -42,8 +42,6 @@ class LineController extends Controller
     }
 
     public function verify(Request $request) {
-        $this->httpClient = new CurlHTTPClient(self::CHANNEL_TOKEN);
-        $this->bot = new LINEBot($this->httpClient, ['channelSecret' => self::CHANNEL_SECRET]);
         dd( $this->httpClient,  $this->bot);
 
         $code = $request->code;

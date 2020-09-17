@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\LineController;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use LINE\LINEBot;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +17,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('LINEBot', function () {
+            return new LINEBot(
+                new CurlHTTPClient(LineController::CHANNEL_TOKEN),
+                ['channelSecret' => LineController::CHANNEL_SECRET]
+            );
+        });
     }
 
     /**
