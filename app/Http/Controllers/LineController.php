@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use LINE\LINEBot;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
 class LineController extends Controller
 {
@@ -14,6 +16,19 @@ class LineController extends Controller
     const STATE = 'random_string';
     const SCOPE = 'profile%20openid%20email';
     const CLIENT_SECRET = '04f226eb9eae8a57cdcb9fe361c52047';
+    const CHANNEL_TOKEN = '9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=';
+    const CHANNEL_SECRET = 'ec46fc50e1dbfa160360eae8767d8831';
+
+    private $httpClient;
+    private $bot;
+
+//    public function __construct(
+//        CurlHTTPClient $httpClient,
+//        LINEBot $bot
+//    ) {
+//        $this->httpClient = $httpClient;
+//        $this->bot = $bot;
+//    }
 
     public function lineLogin() {
         $url = self::AUTHOR_REQUEST_URL .
@@ -27,6 +42,10 @@ class LineController extends Controller
     }
 
     public function verify(Request $request) {
+        $this->httpClient = new CurlHTTPClient(self::CHANNEL_TOKEN);
+        $this->bot = new LINEBot($this->httpClient, ['channelSecret' => self::CHANNEL_SECRET]);
+        dd( $this->httpClient,  $this->bot);
+
         $code = $request->code;
         return view('verify', compact('code'));
     }
@@ -88,7 +107,7 @@ class LineController extends Controller
 
         Log::channel('single')->info($replyContent);
 
-        return HTTP::withToken('9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=')
+        return HTTP::withToken(self::CHANNEL_TOKEN)
             ->post('https://api.line.me/v2/bot/message/reply', $replyContent);
     }
 }
