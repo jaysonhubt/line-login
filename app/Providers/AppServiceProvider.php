@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('LINEBot', function () {
+        $this->app->singleton(LINEBot::class, function () {
             return new LINEBot(
                 new CurlHTTPClient(LineController::CHANNEL_TOKEN),
                 ['channelSecret' => LineController::CHANNEL_SECRET]
