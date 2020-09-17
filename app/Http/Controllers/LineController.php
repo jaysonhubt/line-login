@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LineHelper;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +15,13 @@ class LineController extends Controller
     const STATE = 'random_string';
     const SCOPE = 'profile%20openid%20email';
     const CLIENT_SECRET = '04f226eb9eae8a57cdcb9fe361c52047';
+
+    private LineHelper $lineHelper;
+
+    public function __construct(LineHelper $lineHelper)
+    {
+        $this->lineHelper = $lineHelper;
+    }
 
     public function lineLogin() {
         $url = self::AUTHOR_REQUEST_URL .
@@ -65,30 +73,38 @@ class LineController extends Controller
     }
 
     private function sendDefaultReplyMessage($replyToken) {
-        $replyContent = [
-            'replyToken' => $replyToken,
-            'messages' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Hi!'
-                ],
-                [
-                    'type' => 'sticker',
-                    'packageId' => 11537,
-                    'stickerId' => 52002736
-                ],
-                [
-                    'type' => 'image',
-                    'originalContentUrl' => 'https://picsum.photos/536/354',
-                    'previewImageUrl' => 'https://picsum.photos/536/354'
-                ]
-            ],
-            'notificationDisabled' => false
-        ];
+        $response = $this->lineHelper->replyText($replyToken, 'From LINEBot with love!');
 
-        Log::channel('single')->info($replyContent);
+        if (!$response->isSucceeded()) {
+            return $response->getHTTPStatus() . ' ' . $response->getRawBody();
+        }
 
-        return HTTP::withToken('9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=')
-            ->post('https://api.line.me/v2/bot/message/reply', $replyContent);
+        return null;
+
+//        $replyContent = [
+//            'replyToken' => $replyToken,
+//            'messages' => [
+//                [
+//                    'type' => 'text',
+//                    'text' => 'Hi!'
+//                ],
+//                [
+//                    'type' => 'sticker',
+//                    'packageId' => 11537,
+//                    'stickerId' => 52002736
+//                ],
+//                [
+//                    'type' => 'image',
+//                    'originalContentUrl' => 'https://picsum.photos/536/354',
+//                    'previewImageUrl' => 'https://picsum.photos/536/354'
+//                ]
+//            ],
+//            'notificationDisabled' => false
+//        ];
+//
+//        Log::channel('single')->info($replyContent);
+//
+//        return HTTP::withToken('9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=')
+//            ->post('https://api.line.me/v2/bot/message/reply', $replyContent);
     }
 }
