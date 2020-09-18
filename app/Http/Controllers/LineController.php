@@ -75,10 +75,16 @@ class LineController extends Controller
             }
 
             $userId = 'Ud7a58ed5efb8a8f8eb845bf7e1b2c958';
-            $message = new TextMessageBuilder('This is Push Message to Son Tran');
+            $user = $this->lineHelper->getProfile($userId);
+            $message = new TextMessageBuilder('This is Push Message to ' . $user->getJSONDecodedBody()['displayName']);
             $pushMessageUser = $this->lineHelper->pushMessage($userId, $message);
             if (!$pushMessageUser->isSucceeded()) {
-                Log::channel('single')->info('This is Push Message to Son Tran' . $pushMessageUser->getHTTPStatus() . ' ' . $pushMessageUser->getRawBody());
+                Log::channel('single')->info('This is Push Message to ' . $user->getJSONDecodedBody()['displayName'] . $pushMessageUser->getHTTPStatus() . ' ' . $pushMessageUser->getRawBody());
+            }
+
+            $broadcastMessage = $this->lineHelper->broadcast(new TextMessageBuilder('This is Broadcast message from Son Tran\'s Bot'));
+            if (!$broadcastMessage->isSucceeded()) {
+                Log::channel('single')->info('Broadcast message:' . $broadcastMessage->getHTTPStatus() . ' ' . $broadcastMessage->getRawBody());
             }
         }
     }
