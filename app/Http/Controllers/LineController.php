@@ -6,6 +6,7 @@ use App\Helpers\LineHelper;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class LineController extends Controller
 {
@@ -56,55 +57,29 @@ class LineController extends Controller
         dd($response->json());
     }
 
-    public function result(Request $request) {
-        dd($request->all());
-    }
-
     public function webhook(Request $request) {
         Log::channel('single')->info('webhook');
         Log::channel('single')->info($request->all());
 
         if ($request['events'][0]['type'] === 'message') {
-            $result = $this->sendDefaultReplyMessage($request['events'][0]['replyToken']);
-            Log::channel('single')->info($result->json());
+            $result = $this->lineHelper->replyText($request['events'][0]['replyToken'], 'From LINEBot with love!');
+            if (!$result->isSucceeded()) {
+                Log::channel('single')->info($result->getHTTPStatus() . ' ' . $result->getRawBody());
+            }
+
+            $groupId = 'C13c5e5724af770ec2acd48470b1ccd83';
+            $message = new TextMessageBuilder('This is Push Message to Test GR');
+            $pushMessageGr = $this->lineHelper->pushMessage($groupId, $message);
+            if (!$pushMessageGr->isSucceeded()) {
+                Log::channel('single')->info('This is Push Message to Test GR' . $pushMessageGr->getHTTPStatus() . ' ' . $pushMessageGr->getRawBody());
+            }
+
+            $userId = 'Ud7a58ed5efb8a8f8eb845bf7e1b2c958';
+            $message = new TextMessageBuilder('This is Push Message to Son Tran');
+            $pushMessageUser = $this->lineHelper->pushMessage($userId, $message);
+            if (!$pushMessageUser->isSucceeded()) {
+                Log::channel('single')->info('This is Push Message to Son Tran' . $pushMessageUser->getHTTPStatus() . ' ' . $pushMessageUser->getRawBody());
+            }
         }
-
-        dd($request->all());
-    }
-
-    private function sendDefaultReplyMessage($replyToken) {
-        $response = $this->lineHelper->replyText($replyToken, 'From LINEBot with love!');
-
-        if (!$response->isSucceeded()) {
-            return $response->getHTTPStatus() . ' ' . $response->getRawBody();
-        }
-
-        return null;
-
-//        $replyContent = [
-//            'replyToken' => $replyToken,
-//            'messages' => [
-//                [
-//                    'type' => 'text',
-//                    'text' => 'Hi!'
-//                ],
-//                [
-//                    'type' => 'sticker',
-//                    'packageId' => 11537,
-//                    'stickerId' => 52002736
-//                ],
-//                [
-//                    'type' => 'image',
-//                    'originalContentUrl' => 'https://picsum.photos/536/354',
-//                    'previewImageUrl' => 'https://picsum.photos/536/354'
-//                ]
-//            ],
-//            'notificationDisabled' => false
-//        ];
-//
-//        Log::channel('single')->info($replyContent);
-//
-//        return HTTP::withToken('9HtT9mHDETFdiWrXX8xTmjauaOMiHDI4IaavUBX59ftcLtkuo64C3TI1g43OxY8Ksq+yBDl5ZeNIfOxlnmSFy6VYubNLTvKxMjQxwVTV1zZiRQUyrmpUmJTjUsXwrjqx02YjHTrZh/AqAE0xK5U6LgdB04t89/1O/w1cDnyilFU=')
-//            ->post('https://api.line.me/v2/bot/message/reply', $replyContent);
     }
 }
