@@ -54,7 +54,7 @@ class LineController extends Controller
             $response->throw()->json();
         }
 
-        dd($response->json());
+        dd(json_decode($response->json()));
     }
 
     public function webhook(Request $request) {
