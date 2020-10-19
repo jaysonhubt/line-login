@@ -37,7 +37,8 @@ class LineController extends Controller
 
     public function verify(Request $request) {
         $code = $request->code;
-        return view('verify', compact('code'));
+        $data = $request->toArray();
+        return view('verify', compact(['code', 'data']));
     }
 
     public function getAccessToken(Request $request) {

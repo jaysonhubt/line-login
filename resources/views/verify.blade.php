@@ -9,6 +9,10 @@
     <input type="submit" value="Submit">
 </form>
 
+<pre>
+    @php(var_dump($data))
+</pre>
+
 
 <form action="https://api.line.me/oauth2/v2.1/token" method="POST" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="grant_type" value="authorization_code">
