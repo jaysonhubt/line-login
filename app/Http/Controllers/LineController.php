@@ -30,7 +30,8 @@ class LineController extends Controller
             '&client_id=' . self::CLIENT_ID .
             '&redirect_uri=' . route('line_verify') .
             '&state=' . self::STATE .
-            '&scope=' . self::SCOPE;
+            '&scope=' . self::SCOPE .
+            '&bot_prompt=normal';
 
         return redirect($url);
     }
